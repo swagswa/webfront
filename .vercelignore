@@ -1,0 +1,12 @@
+node_modules
+.env
+.env.*
+*.log
+.DS_Store
+src
+public
+*.md
+.git
+.gitignore
+tsconfig.json
+vite.config.ts
