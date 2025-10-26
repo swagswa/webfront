@@ -3,6 +3,7 @@ export interface Task {
   userId: number;
   title: string;
   done: boolean;
+  completedAt?: string | null;
   createdAt: string;
   updatedAt: string;
 }

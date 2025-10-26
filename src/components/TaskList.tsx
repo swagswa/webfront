@@ -5,9 +5,10 @@ import type { Task } from '../types';
 
 interface TaskListProps {
   onStartQuiz: (tasks: Task[]) => void;
+  onViewProgress: () => void;
 }
 
-export const TaskList: React.FC<TaskListProps> = ({ onStartQuiz }) => {
+export const TaskList: React.FC<TaskListProps> = ({ onStartQuiz, onViewProgress }) => {
   const { user } = useTelegram();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
@@ -105,12 +106,21 @@ export const TaskList: React.FC<TaskListProps> = ({ onStartQuiz }) => {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8 text-center"
+        className="mb-8"
       >
-        <h1 className="text-4xl font-light text-gray-900 mb-2">
-          ✍️ Daily Tasks
-        </h1>
-        <p className="text-apple-gray-400 font-light">
+        <div className="flex items-center justify-between mb-4">
+          <h1 className="text-4xl font-light text-gray-900">
+            ✍️ Daily Tasks
+          </h1>
+          <button
+            onClick={onViewProgress}
+            className="px-4 py-2 bg-apple-gray-100 hover:bg-apple-gray-200 text-gray-900 rounded-xl transition-colors flex items-center gap-2"
+          >
+            <span>📊</span>
+            <span className="font-light">Progress</span>
+          </button>
+        </div>
+        <p className="text-apple-gray-400 font-light text-center">
           Plan your day, track your progress
         </p>
       </motion.div>

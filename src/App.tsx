@@ -4,9 +4,10 @@ import { AuthWrapper } from './components/AuthWrapper';
 import { TaskList } from './components/TaskList';
 import { SwipeQuiz } from './components/SwipeQuiz';
 import { Summary } from './components/Summary';
+import { Progress } from './components/Progress';
 import type { Task } from './types';
 
-type AppMode = 'list' | 'quiz' | 'summary';
+type AppMode = 'list' | 'quiz' | 'summary' | 'progress';
 
 function AppContent() {
   const [mode, setMode] = useState<AppMode>('list');
@@ -29,15 +30,22 @@ function AppContent() {
     setSummaryTasks([]);
   };
 
+  const handleViewProgress = () => {
+    setMode('progress');
+  };
+
   return (
     <div className="min-h-screen bg-white">
-      {mode === 'list' && <TaskList onStartQuiz={handleStartQuiz} />}
+      {mode === 'list' && (
+        <TaskList onStartQuiz={handleStartQuiz} onViewProgress={handleViewProgress} />
+      )}
       {mode === 'quiz' && (
         <SwipeQuiz tasks={quizTasks} onComplete={handleQuizComplete} />
       )}
       {mode === 'summary' && (
         <Summary tasks={summaryTasks} onBackToList={handleBackToList} />
       )}
+      {mode === 'progress' && <Progress onBack={handleBackToList} />}
     </div>
   );
 }
